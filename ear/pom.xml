@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org</groupId>
+        <artifactId>Jboss-artemis-activemq-reprex</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>reprex</artifactId>
+    <packaging>ear</packaging>
+
+    <dependencies>
+
+
+        
+        <dependency>
+            <groupId>org</groupId>
+            <artifactId>core</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>ejb</type>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ear-plugin</artifactId>
+                <version>2.10.1</version>
+                <configuration>
+                      <generateApplicationXml>true</generateApplicationXml>
+
+                     <version>7</version>
+<!--                      <artifactTypeMappings>
+                          <artifactTypeMapping type="test-jar" mapping="jar" />
+                      </artifactTypeMappings>-->
+                      <defaultLibBundleDir>lib</defaultLibBundleDir>
+                      <fileNameMapping>no-version</fileNameMapping>
+                      <modules>
+
+                          <ejbModule>
+                              <groupId>org</groupId>
+                              <artifactId>core</artifactId>
+                          </ejbModule>
+                      </modules>
+                  </configuration>
+              </plugin>
+          </plugins>
+      </build>
+
+      <properties>
+          <maven.compiler.source>1.8</maven.compiler.source>
+          <maven.compiler.target>1.8</maven.compiler.target>
+      </properties>
+
+  </project>
