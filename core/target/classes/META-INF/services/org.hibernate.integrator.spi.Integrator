@@ -1,3 +1,0 @@
-#Bas : I left the corresponding code in place in case we do revisit this
-# and need to get finer grained control over event listeners.
-# gov.gsa.nsfs.persist.hibernate.EventRegistry
