@@ -9,13 +9,8 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.util.Properties;
 
-/**
- * User: bven
- * Date: 4/28/16.
- */
 public class JndiFixture implements Closeable {
 
-   // static final Logger logger = LoggerFactory.getLogger(JndiFixture.class);
 
     private final String hostName;
     private final String httpPort;
@@ -25,7 +20,6 @@ public class JndiFixture implements Closeable {
 
     public JndiFixture() {
 
-        // The 'remote.*' is there for backwards compatibility
         hostName = System.getProperty(TestConstants.JBOSS_HOST, System.getProperty(
                 "remote.connection.default.host",
                 "127.0.0.1"));
@@ -52,7 +46,6 @@ public class JndiFixture implements Closeable {
         try {
             context.close();
         } catch (NamingException e) {
-           // logger.error(e.getMessage());
         }
     }
 
@@ -75,28 +68,7 @@ public class JndiFixture implements Closeable {
 
     @Override
     public void close() throws IOException {
-//        if (EJBClientContext.getCurrent() != null) {
-//            EJBClientContext.getCurrent().getConfiguredConnections().get(0).;
-//        }
     }
 
-    public String getHostName() {
-        return hostName;
-    }
 
-    public String getHttpPort() {
-        return httpPort;
-    }
-
-    public String getManagementPort() {
-        return managementPort;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
 }
