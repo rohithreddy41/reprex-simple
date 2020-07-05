@@ -1,2 +1,4 @@
 1. This project has a simple remote bean MessageManagerBean which has methods to add & receive message from topic.
 2. AddAndReceiveMessageTest is used to invoke the MessageManagerBean remotely and calls methods to add message to topic and receive message from topic.
+3. See server.log which captured a test run where "subscriber.receive(5000)"  received null message. I added comments to log with questions that did not make sense to me.(Search for '$$' to see my comments).
+4. Also included my jboss configuration file(standalone-full.xml)
