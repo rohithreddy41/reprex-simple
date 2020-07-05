@@ -1,0 +1,2 @@
+1. This project has a simple remote bean MessageManagerBean which has methods to add & receive message from topic.
+2. AddAndReceiveMessageTest is used to invoke the MessageManagerBean remotely and calls methods to add message to topic and receive message from topic.
