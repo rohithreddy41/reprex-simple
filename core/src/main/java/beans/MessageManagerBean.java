@@ -4,6 +4,8 @@ import javax.annotation.Resource;
 import javax.ejb.Remote;
 import javax.ejb.Singleton;
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.jms.JMSContext;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.Session;
@@ -26,6 +28,9 @@ public class MessageManagerBean implements MessageManager {
 
     @Resource(mappedName = "java:/" +CONNECTION_FACTORY_NAME)
     private TopicConnectionFactory topicConnectionFactory;
+
+    @Inject
+    private JMSContext jmsContext;
 
     public static final String CONNECTION_FACTORY_NAME = "ConnectionFactory";
 
@@ -62,7 +67,7 @@ public class MessageManagerBean implements MessageManager {
 
     }
 
-    private  void addSubscribers() throws JMSException{
+    private  void addSubscribers() throws Exception{
         if(session != null && topic != null) {
             TopicSubscriber subscriber1 = session.createSubscriber(topic);
             subscribers.add(subscriber1);
@@ -72,7 +77,7 @@ public class MessageManagerBean implements MessageManager {
         }
 
     @Override
-    public void receive() throws JMSException{
+    public void receive() throws Exception{
             for(TopicSubscriber subscriber : subscribers){
                 Message msg = subscriber.receive(5000);
                 if (msg == null) {
@@ -86,3 +91,5 @@ public class MessageManagerBean implements MessageManager {
         connection.close();
     }
 }
+
+//https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?product=appplatform&downloadType=distributions&version=7.1
