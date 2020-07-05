@@ -1,6 +1,7 @@
 package order;
 
 import beans.MessageManager;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Test;
 
 import javax.jms.JMSException;
@@ -16,7 +17,8 @@ public class AddAndReceiveMessageTest extends AbstractIntegrationFixture{
     @Test
     public void addMessages() throws JMSException{
         MessageManager messageManager = getOrderManager();
-        messageManager.addMessage("test message");
+        String message = RandomStringUtils.randomAlphanumeric(8);
+        messageManager.addMessage(message);
 
         messageManager.receive();
 

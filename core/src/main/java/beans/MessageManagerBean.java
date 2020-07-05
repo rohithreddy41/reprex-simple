@@ -27,7 +27,7 @@ public class MessageManagerBean implements MessageManager {
     @Resource(mappedName = "java:/" +CONNECTION_FACTORY_NAME)
     private TopicConnectionFactory topicConnectionFactory;
 
-    public static final String CONNECTION_FACTORY_NAME = "RemoteFuseJMS";
+    public static final String CONNECTION_FACTORY_NAME = "ConnectionFactory";
 
 
     List<TopicSubscriber> subscribers = new ArrayList<>();
@@ -66,7 +66,7 @@ public class MessageManagerBean implements MessageManager {
             TopicSubscriber subscriber1 =session.createSubscriber(topic);
             subscribers.add(subscriber1);
             for(TopicSubscriber subscriber : subscribers){
-                Message msg = subscriber.receive();
+                Message msg = subscriber.receive(5000);
                 if (msg == null) {
                     System.out.println("Timed out waiting for msg");
                 } else {

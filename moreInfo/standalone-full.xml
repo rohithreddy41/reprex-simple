@@ -223,10 +223,10 @@
                 <stateful default-access-timeout="5000" cache-ref="simple" passivation-disabled-cache-ref="simple"/>
                 <singleton default-access-timeout="5000"/>
             </session-bean>
-            <mdb>
-                <resource-adapter-ref resource-adapter-name="${ejb.resource-adapter-name:activemq-ra.rar}"/>
+            <!--<mdb>
+                <resource-adapter-ref resource-adapter-name="${ejb.resource-adapter-name:activemq-ra.rar}"/> 
                 <bean-instance-pool-ref pool-name="mdb-strict-max-pool"/>
-            </mdb>
+            </mdb> -->
             <pools>
                 <bean-instance-pools>
                     <strict-max-pool name="slsb-strict-max-pool" derive-size="from-worker-pools" instance-acquisition-timeout="5" instance-acquisition-timeout-unit="MINUTES"/>
@@ -473,9 +473,10 @@
                 <jms-queue name="TASKQueue" entries="java:/jms/queue/TASKQueue java:jboss/exported/jms/queue/TASKQueue"/>
                 <jms-queue name="SLAQueue" entries="java:/jms/queue/SLAQueue java:jboss/exported/jms/queue/SLAQueue"/>
                 <jms-topic name="lifecycle" entries="java:/jms/topic/lifecycle java:jboss/exported/jms/topic/lifecycle"/>
-                <connection-factory name="InVmConnectionFactory" entries="java:/ConnectionFactory" connectors="in-vm"/>
+               <!-- <connection-factory name="InVmConnectionFactory" entries="java:/ConnectionFactory" connectors="in-vm"/> -->
+                <connection-factory name="InVmConnectionFactory" entries="java:/ConnectionFactory java:jboss/DefaultJMSConnectionFactory" connectors="in-vm"/>
                 <connection-factory name="RemoteConnectionFactory" entries="java:jboss/exported/jms/RemoteConnectionFactory" connectors="http-connector"/>
-                <pooled-connection-factory name="activemq-ra" entries="java:/JmsXA java:jboss/DefaultJMSConnectionFactory java:/RemoteFuseJMS" connectors="in-vm" transaction="xa"/>
+                <!-- <pooled-connection-factory name="activemq-ra" entries="java:/JmsXA java:jboss/DefaultJMSConnectionFactory java:/RemoteFuseJMS" connectors="in-vm" transaction="xa"/> -->
             </server>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:naming:2.0">
