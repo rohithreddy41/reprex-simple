@@ -35,6 +35,7 @@ public class MessageManagerBean implements MessageManager {
     private TopicSession session;
 
     private Topic topic;
+    private TopicConnection connection;
 
 
     @Override
@@ -43,11 +44,13 @@ public class MessageManagerBean implements MessageManager {
             return;
         }
         try  {
-            TopicConnection connection = topicConnectionFactory.createTopicConnection();
+            connection = topicConnectionFactory.createTopicConnection();
             session = connection.createTopicSession(true, Session.AUTO_ACKNOWLEDGE);
             topic = session.createTopic("lifecycle");
             TopicPublisher publisher = session.createPublisher(topic);
             publisher.setDeliveryDelay(0l);
+            connection.start();
+            addSubscribers();
             TextMessage tm = session.createTextMessage(messageBody);
             publisher.send(tm);
 
@@ -59,20 +62,27 @@ public class MessageManagerBean implements MessageManager {
 
     }
 
+    private  void addSubscribers() throws JMSException{
+        if(session != null && topic != null) {
+            TopicSubscriber subscriber1 = session.createSubscriber(topic);
+            subscribers.add(subscriber1);
+            TopicSubscriber subscriber2 = session.createSubscriber(topic);
+            subscribers.add(subscriber2);
+        }
+        }
+
     @Override
     public void receive() throws JMSException{
-        //add subscribers
-        if(session != null && topic != null){
-            TopicSubscriber subscriber1 =session.createSubscriber(topic);
-            subscribers.add(subscriber1);
             for(TopicSubscriber subscriber : subscribers){
                 Message msg = subscriber.receive(5000);
                 if (msg == null) {
                     System.out.println("Timed out waiting for msg");
                 } else {
-                    System.out.println("DurableTopicRecvClient.recv, msgt=" + msg);
+                    System.out.println("Received message=" + msg);
                 }
             }
-        }
+        connection.stop();
+        session.close();
+        connection.close();
     }
 }
