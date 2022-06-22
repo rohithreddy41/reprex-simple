@@ -91,7 +91,7 @@
         <dependency>
             <groupId>org.jboss</groupId>
             <artifactId>jboss-ejb-client</artifactId>
-            <version>4.0.12.Final-redhat-00001</version>
+            <version>4.0.39.Final</version>
             <scope>test</scope>
         </dependency>
 
